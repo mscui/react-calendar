@@ -11,7 +11,7 @@
 ```bash
 mkdir demo
 cd demo
-fis3 init react-redux-todo-npm
+fis3 init react-calendar
 ```
 
 ## 运行 & 预览
