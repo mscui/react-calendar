@@ -1,0 +1,36 @@
+{
+  "name": "react-redux-todo-npm",
+  "version": "0.0.0",
+  "description": "react + redux 的 todo demo. 供学习参考。",
+  "dependencies": {
+    "classnames": "^2.2.3",
+    "react": "^15.2.1",
+    "react-dom": "^15.2.1",
+    "react-redux": "^4.4.1",
+    "redux": "^3.3.1"
+  },
+  "devDependencies": {
+    "fis-parser-babel-5.x": "^1.4.0",
+    "fis3-hook-commonjs": "^0.1.25",
+    "fis3-hook-node_modules": "^2.2.8",
+    "fis3-packager-deps-pack": "^0.1.2",
+    "fis3-postpackager-loader": "^2.1.3",
+    "process": "^0.11.9"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "fis3 release -cd ./output && fis3 server start --www output --no-daemon",
+    "dev": "rm -rf output && fis3 release -cwd output",
+    "release": "rm -rf output && fis3 release production -cd output"
+  },
+  "keywords": [
+    "esj"
+  ],
+  "author": "who care",
+  "license": "BSD",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fis-scaffold/react-redux-todo-npm.git"
+  },
+  "main": "fis-conf.js"
+}

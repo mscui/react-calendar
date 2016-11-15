@@ -1,4 +1,4 @@
-# FIS3 React + Redux 的 todo demo.
+# FIS3 React Calender demo
 
 ## 安装 fis3
 
