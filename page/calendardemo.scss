@@ -1,0 +1,21 @@
+ul,li {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+a {
+	text-decoration: none;
+	&:active,
+	&:visited {
+		color: #333;
+	}
+}
+
+.cf:after {
+	clear: both;
+	content: '';
+	display: block;
+	visible: hidden;
+	height: 0;
+}
+

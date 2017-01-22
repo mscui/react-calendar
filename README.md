@@ -1,24 +1,25 @@
-# FIS3 React Calender demo
+# FIS3 React Calendar demo
 
-## 安装 fis3
-
-`npm install fis3 -g`
-
-**注意 fis3 版本请用 3.2.9 或者以上，否则需要把 .ts 文件后缀假如文本类型列表中**
-
-## 初始化
+## 前期准备
 
 ```bash
-mkdir demo
-cd demo
-fis3 init react-calendar
+npm install
+npm install fis3 -g
+```
+
+## 初始化
+启动fis3
+详情参见:[fis3](https://github.com/fex-team/fis3/tree/dev)
+```bash
+cd react-calendar
+fis3 init
 ```
 
 ## 运行 & 预览
 
 ```bash
-fis3 release
-fis3 server start
+fis3 release -w
+fis3 server start --type node
 ```
 
 或者
@@ -39,4 +40,3 @@ fis3 release production -d ./output
 ```
 npm run release
 ```
-# react-calender
