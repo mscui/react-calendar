@@ -1,17 +1,12 @@
 # FIS3 React Calendar demo
 
-## 前期准备
-
-```bash
-npm install
-npm install fis3 -g
-```
-
 ## 初始化
 启动fis3
 详情参见:[fis3](https://github.com/fex-team/fis3/tree/dev)
 ```bash
 cd react-calendar
+npm install
+npm install fis3 -g
 fis3 init
 ```
 

@@ -1,26 +1,3 @@
-// // npm install -g fis3-smarty
-// fis.require('smarty')(fis);
-
-// fis.set('namespace', 'shujuchaxun');
-
-// fis.set('project.ignore', [
-//     'fis-conf.js',
-//     'fis-conf/**',
-//     '/components/**.MD',
-//     '/components/**.md',
-//     'component.json',
-//     'BCLOUD',
-//     'issue.info',
-//     'owner.txt',
-//     '/output/**',
-//     'build.sh',
-//     'README.md',
-//     '.fecsrc',
-//     '.eslintrc.yaml'
-// ]);
-
-// fis.set('project.files', '/index.html'); // 按需编译。
-
 // 采用 commonjs 模块化方案。
 fis.hook('commonjs', {
   baseUrl: './modules',
