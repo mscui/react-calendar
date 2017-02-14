@@ -687,6 +687,16 @@ class CalControl extends React.Component {
             isPanelShow: isShow
         });
     }
+    componentDidMount() {
+        document.onclick = () => {
+            // body...
+            if (this.state.isPanelShow) {
+                this.setState({
+                    isPanelShow: false
+                });
+            }
+        };
+    }
     render() {
         let panelStyle = this.state.isPanelShow ? {display: 'block'} : {display: 'none'};
 
