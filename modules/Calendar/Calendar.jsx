@@ -32,6 +32,63 @@ let util = {
      */
     leapYear(year) {
         return !(year % (year % 100 ? 4 : 400));
+    },
+    howMuchDaysOfMonth(now) {
+        var year = now.getFullYear();
+        var month = now.getMonth();
+        var day = 1;
+
+        var nextMonth = (month + 1 < 12) ? month + 1
+            : (function () {
+            ++year;
+            return 0;
+        }());
+
+        var d = new Date(year, nextMonth, 1);
+        d.setTime(d.getTime() - 24 * 3600 * 1000);
+        return d.getDate();
+    },
+    prevMonth(t) {
+        let year = t.getFullYear();
+        let month = t.getMonth();
+        let day = t.getDate();
+
+        let prevMonth = month - 1 > -1 ? month - 1 : (function () {
+            --year;
+            return 11;
+        })();
+        return new Date(year, prevMonth, day);
+    },
+    nextMonth(t) {
+        let year = t.getFullYear();
+        let month = t.getMonth();
+        let day = t.getDate();
+
+        let nextMonth = month + 1 < 12 ? month + 1
+            : (function () {
+            ++year;
+            return 0;
+        }());
+
+        return new Date(year, nextMonth, day);
+    },
+    today() {
+        let t = new Date();
+        t.setHours(0);
+        t.setMinutes(0);
+        t.setSeconds(0);
+        t.setMilliseconds(0);
+        return t;
+    },
+    nextDay(t) {
+        let temp = new Date(t);
+        temp.setTime(t.getTime() + 24 * 3600 * 1000);
+        return temp;
+    },
+    prevDay(t) {
+        let temp = new Date(t);
+        temp.setTime(t.getTime() - 24 * 3600 * 1000);
+        return temp;
     }
 };
 class CalShow extends React.Component {
@@ -76,6 +133,142 @@ class CalShow extends React.Component {
             </div>
         );
     };
+}
+class CalFilter extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            fromdate: this.props.fromdate,
+            enddate: this.props.enddate
+        }
+        this.filterYesterday = this.filterYesterday.bind(this);
+        this.filterToday = this.filterToday.bind(this);
+        this.filterNearSevendays = this.filterNearSevendays.bind(this);
+        this.filterLastWeek = this.filterLastWeek.bind(this);
+        this.filterLastMonth = this.filterLastMonth.bind(this);
+        this.filterLastQuarter = this.filterLastQuarter.bind(this);
+        this.filterThisMonth = this.filterThisMonth.bind(this);
+    }
+    filterYesterday() {
+        let from = this.state.fromdate;
+        let end = this.state.enddate;
+
+        end = util.prevDay(util.today());
+        end.setHours(23);
+        from = new Date(end);
+        from.setHours(0);
+
+        this.props.updateCtrlFilter(from, end);
+    }
+    filterToday() {
+        let from = this.state.fromdate;
+        let end = this.state.enddate;
+
+        from = util.today();
+        end = new Date(from);
+        end.setHours(23);
+
+        this.props.updateCtrlFilter(from, end);
+    }
+    filterNearSevendays() {
+        let from = this.state.fromdate;
+        let end = this.state.enddate;
+
+        end = util.today();
+        from = (function () {
+            let t = end;
+            for (let i = 0; i < 6; i++) {
+                t = util.prevDay(t);
+            }
+            return t;
+        })();
+        end.setHours(23);
+
+        this.props.updateCtrlFilter(from, end);
+    }
+    filterLastWeek() {
+        let from = this.state.fromdate;
+        let end = this.state.enddate;
+
+        end = (function () {
+            let s = util.today();
+            let day = s.getDay();
+            for (let i = 0; i < day; i++) {
+                s = util.prevDay(s);
+            }
+            return s;
+        })();
+
+        from = (function () {
+            let t = end;
+            for (let i = 0; i < 6; i++) {
+                t = util.prevDay(t);
+            }
+            return t;
+        })();
+        from.setHours(23);
+
+        this.props.updateCtrlFilter(from, end);
+    }
+    filterThisMonth() {
+        let from = this.state.fromdate;
+        let end = this.state.enddate;
+
+        let now = util.today();
+        from = new Date(now.getFullYear(), now.getMonth(), 1);
+        end = new Date(from);
+        end.setDate(util.howMuchDaysOfMonth(end));
+        end.setHours(23);
+
+        this.props.updateCtrlFilter(from, end);
+    }
+    filterLastMonth() {
+        let from = this.state.fromdate;
+        let end = this.state.enddate;
+
+        let now = util.today();
+        end = util.prevMonth(new Date(now.getFullYear(), now.getMonth(), 1));
+        end.setDate(util.howMuchDaysOfMonth(end));
+        from = new Date(end);
+        from.setDate(1);
+        from.setHours(0);
+
+        this.props.updateCtrlFilter(from, end);
+    }
+    filterLastQuarter() {
+        let from = this.state.fromdate;
+        let end = this.state.enddate;
+
+        let x = util.today();
+        // 将字符串转化为整数
+        let nowSeason = ~~(x.getMonth() / 3);
+        let year = x.getFullYear();
+        nowSeason = nowSeason - 1 > 0 ? nowSeason - 1 : (function () {
+            year--;
+            return 3;
+        })();
+        from = new Date(year, nowSeason * 3, 1);
+        end = from;
+        end = util.nextMonth(end);
+        end = util.nextMonth(end);
+        end.setDate(util.howMuchDaysOfMonth(end));
+        end.setHours(23);
+
+        this.props.updateCtrlFilter(from, end);
+    }
+    render () {
+        return (
+            <div className="cal-filter">
+                <span onClick={this.filterYesterday}>昨天</span>
+                <span onClick={this.filterToday}>今天</span>
+                <span onClick={this.filterNearSevendays}>最近7天</span>
+                <span onClick={this.filterLastWeek}>上周</span>
+                <span onClick={this.filterThisMonth}>本月</span>
+                <span onClick={this.filterLastMonth}>上个月</span>
+                <span onClick={this.filterLastQuarter}>上个季度</span>
+            </div>
+        );
+    }
 }
 class CalHeader extends React.Component {
     constructor(props) {
@@ -507,6 +700,11 @@ class CalControl extends React.Component {
                     updatePanelActive = {this.updatePanelActive}
                 />
                 <div className = "cal-panel" style = {panelStyle}>
+                    <CalFilter
+                        fromdate = {this.state.fromdate}
+                        enddate = {this.state.enddate}
+                        updateCtrlFilter = {this.updateCtrlFilter}
+                    />
                     <CalWrap
                         name = "from"
                         fromdate = {this.state.fromdate}

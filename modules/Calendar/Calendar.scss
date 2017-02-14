@@ -60,6 +60,16 @@ $background-color: #f7f7f7;
         height: 18px;
     }
 }
+.cal-filter {
+    margin-bottom: 10px;
+
+    span {
+        cursor: pointer;
+        margin-left: 20px;
+        font-size: 12px;
+        color: #3389ff;
+    }
+}
 .header {
     margin-bottom: 10px;
 
