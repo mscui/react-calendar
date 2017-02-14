@@ -105,12 +105,6 @@ class CalShow extends React.Component {
 
         this.props.updatePanelActive(!this.props.isPanelShow);
     }
-    componentDidMount() {
-        // $(document).on('click', function(e){
-        //           e.preventDefault();
-        //           $('.cal-panel').hide();
-        //       });
-    }
     render() {
         let isActiveORShow = '';
 
@@ -149,7 +143,11 @@ class CalFilter extends React.Component {
         this.filterLastQuarter = this.filterLastQuarter.bind(this);
         this.filterThisMonth = this.filterThisMonth.bind(this);
     }
-    filterYesterday() {
+    filterYesterday(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        e.nativeEvent.stopImmediatePropagation();
+
         let from = this.state.fromdate;
         let end = this.state.enddate;
 
@@ -160,7 +158,11 @@ class CalFilter extends React.Component {
 
         this.props.updateCtrlFilter(from, end);
     }
-    filterToday() {
+    filterToday(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        e.nativeEvent.stopImmediatePropagation();
+
         let from = this.state.fromdate;
         let end = this.state.enddate;
 
@@ -170,7 +172,11 @@ class CalFilter extends React.Component {
 
         this.props.updateCtrlFilter(from, end);
     }
-    filterNearSevendays() {
+    filterNearSevendays(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        e.nativeEvent.stopImmediatePropagation();
+
         let from = this.state.fromdate;
         let end = this.state.enddate;
 
@@ -186,7 +192,11 @@ class CalFilter extends React.Component {
 
         this.props.updateCtrlFilter(from, end);
     }
-    filterLastWeek() {
+    filterLastWeek(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        e.nativeEvent.stopImmediatePropagation();
+
         let from = this.state.fromdate;
         let end = this.state.enddate;
 
@@ -210,7 +220,11 @@ class CalFilter extends React.Component {
 
         this.props.updateCtrlFilter(from, end);
     }
-    filterThisMonth() {
+    filterThisMonth(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        e.nativeEvent.stopImmediatePropagation();
+
         let from = this.state.fromdate;
         let end = this.state.enddate;
 
@@ -222,7 +236,11 @@ class CalFilter extends React.Component {
 
         this.props.updateCtrlFilter(from, end);
     }
-    filterLastMonth() {
+    filterLastMonth(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        e.nativeEvent.stopImmediatePropagation();
+
         let from = this.state.fromdate;
         let end = this.state.enddate;
 
@@ -235,7 +253,11 @@ class CalFilter extends React.Component {
 
         this.props.updateCtrlFilter(from, end);
     }
-    filterLastQuarter() {
+    filterLastQuarter(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        e.nativeEvent.stopImmediatePropagation();
+
         let from = this.state.fromdate;
         let end = this.state.enddate;
 
@@ -389,6 +411,10 @@ class CalHeader extends React.Component {
         });
     }
     changeYearOrMonth(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        e.nativeEvent.stopImmediatePropagation();
+
         // 子组件变化渲染到父组件
         let year = '';
         let month = '';
