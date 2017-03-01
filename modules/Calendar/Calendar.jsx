@@ -465,7 +465,6 @@ class CalHeader extends React.Component {
     }
     componentDidMount() {
         util.addEvent(document, 'click', ()=>{
-            console.log('111');
             if (this.state.isMonthShow) {
                 this.setState({
                     isMonthShow: false
@@ -736,7 +735,6 @@ class CalControl extends React.Component {
     }
     componentDidMount() {
         util.addEvent(document, 'click', ()=>{
-            console.log('222');
             if (this.state.isPanelShow) {
                 this.setState({
                     isPanelShow: false
