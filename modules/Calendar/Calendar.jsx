@@ -21,6 +21,12 @@ let util = {
                 return o.year + '-' + o.month + '-' + o.day;
         }
     },
+    addEvent(element, evnt, funct){
+        if (element.attachEvent)
+            return element.attachEvent('on' + evnt, funct);
+        else
+            return element.addEventListener(evnt, funct, false);
+    },
     /**
      * 判断闰年函数
      * @param  {number} year 要判断的年份
@@ -422,7 +428,7 @@ class CalHeader extends React.Component {
         let enddate = '';
         let day = this.props.day;
 
-        if (e.target.dataset.type = 'year') {
+        if (e.target.dataset.type == 'year') {
             year = e.target.dataset.key;
             month = this.state.month;
         } else {
@@ -457,13 +463,28 @@ class CalHeader extends React.Component {
             isYearShow: false
         });
     }
+    componentDidMount() {
+        util.addEvent(document, 'click', ()=>{
+            console.log('111');
+            if (this.state.isMonthShow) {
+                this.setState({
+                    isMonthShow: false
+                });
+            }
+            if (this.state.isYearShow) {
+                this.setState({
+                    isYearShow: false
+                });
+            }
+        });
+    }
     render() {
         let yearArray = [];
         let monthArray = [];
         let isMonthShow = this.state.isMonthShow ? { display: 'block' } : { display: 'none'};
         let isYearShow = this.state.isYearShow ? { display: 'block' } : { display: 'none'};
 
-        for (let i = 1950; i < 2051; i++) {
+        for (let i = 2010; i < 2051; i++) {
             yearArray.push(<li key={i}
                 onClick={this.changeYearOrMonth}
                 data-key={i}
@@ -714,14 +735,14 @@ class CalControl extends React.Component {
         });
     }
     componentDidMount() {
-        document.onclick = () => {
-            // body...
+        util.addEvent(document, 'click', ()=>{
+            console.log('222');
             if (this.state.isPanelShow) {
                 this.setState({
                     isPanelShow: false
                 });
             }
-        };
+        });
     }
     render() {
         let panelStyle = this.state.isPanelShow ? {display: 'block'} : {display: 'none'};
